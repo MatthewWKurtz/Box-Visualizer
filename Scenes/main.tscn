@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cl7s6dpwckdcg"]
+[gd_scene load_steps=10 format=3 uid="uid://cl7s6dpwckdcg"]
 
 [ext_resource type="Theme" uid="uid://b3tgogofdc3ob" path="res://Themes/Text.tres" id="1_6a30g"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_37en6"]
@@ -15,6 +15,43 @@ colors = PackedColorArray(0.501961, 0.501961, 0.501961, 0.501961)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_l0hub"]
 gradient = SubResource("Gradient_0ioju")
 
+[sub_resource type="Animation" id="Animation_wmjox"]
+resource_name = "remove"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 81), Vector2(-256, 81)]
+}
+
+[sub_resource type="Animation" id="Animation_ldin2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 81)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_38sw2"]
+_data = {
+"RESET": SubResource("Animation_ldin2"),
+"remove": SubResource("Animation_wmjox")
+}
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_37en6")
 
@@ -25,7 +62,7 @@ environment = SubResource("Environment_kr6dh")
 mesh = SubResource("BoxMesh_04y2o")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
@@ -85,7 +122,7 @@ custom_minimum_size = Vector2(48, 28)
 layout_mode = 2
 theme = ExtResource("1_6a30g")
 theme_override_font_sizes/normal_font_size = 18
-text = "360°"
+text = "0°"
 
 [node name="x-angle" type="HSlider" parent="Control Panel/GridContainer/Rotation Container"]
 layout_mode = 2
@@ -179,7 +216,7 @@ text = "1x"
 [node name="x-scale" type="HSlider" parent="Control Panel/GridContainer/Scale Container"]
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = 1.0
+min_value = 0.1
 max_value = 10.0
 step = 0.1
 value = 1.0
@@ -201,7 +238,7 @@ text = "1x
 
 [node name="y-scale" type="HSlider" parent="Control Panel/GridContainer/Scale Container"]
 layout_mode = 2
-min_value = 1.0
+min_value = 0.1
 max_value = 10.0
 step = 0.1
 value = 1.0
@@ -223,15 +260,63 @@ text = "1x
 
 [node name="z-scale" type="HSlider" parent="Control Panel/GridContainer/Scale Container"]
 layout_mode = 2
-min_value = 1.0
+min_value = 0.1
 max_value = 10.0
 step = 0.1
 value = 1.0
+
+[node name="Scale2" type="RichTextLabel" parent="Control Panel/GridContainer"]
+custom_minimum_size = Vector2(256, 36)
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("1_6a30g")
+bbcode_enabled = true
+text = "[center]Misc"
+
+[node name="Scale Container2" type="GridContainer" parent="Control Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="Zoom" type="RichTextLabel" parent="Control Panel/GridContainer/Scale Container2"]
+custom_minimum_size = Vector2(64, 28)
+layout_mode = 2
+theme = ExtResource("1_6a30g")
+theme_override_font_sizes/normal_font_size = 18
+text = "Zoom:"
+
+[node name="zoom-text" type="RichTextLabel" parent="Control Panel/GridContainer/Scale Container2"]
+custom_minimum_size = Vector2(48, 28)
+layout_mode = 2
+theme = ExtResource("1_6a30g")
+theme_override_font_sizes/normal_font_size = 18
+text = "1x"
+
+[node name="zoom-amount" type="HSlider" parent="Control Panel/GridContainer/Scale Container2"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.5
+max_value = 15.0
+step = 0.1
+value = 5.0
 
 [node name="Button" type="Button" parent="Control Panel/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_6a30g")
 text = "Reset"
+
+[node name="Remove" type="Button" parent="Control Panel"]
+layout_mode = 0
+offset_left = 256.0
+offset_right = 283.0
+offset_bottom = 31.0
+text = "<<"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_38sw2")
+}
 
 [connection signal="value_changed" from="Control Panel/GridContainer/Rotation Container/x-angle" to="." method="_on_angle_value_changed" binds= [0]]
 [connection signal="value_changed" from="Control Panel/GridContainer/Rotation Container/y-angle" to="." method="_on_angle_value_changed" binds= [1]]
@@ -240,4 +325,6 @@ text = "Reset"
 [connection signal="value_changed" from="Control Panel/GridContainer/Scale Container/x-scale" to="." method="_on_scale_value_changed" binds= [0]]
 [connection signal="value_changed" from="Control Panel/GridContainer/Scale Container/y-scale" to="." method="_on_scale_value_changed" binds= [1]]
 [connection signal="value_changed" from="Control Panel/GridContainer/Scale Container/z-scale" to="." method="_on_scale_value_changed" binds= [2]]
+[connection signal="value_changed" from="Control Panel/GridContainer/Scale Container2/zoom-amount" to="." method="_on_zoom_value_changed"]
 [connection signal="pressed" from="Control Panel/GridContainer/Button" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="Control Panel/Remove" to="." method="_on_remove_pressed"]

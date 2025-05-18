@@ -16,13 +16,21 @@ extends Node3D
 
 @onready var scaleText = [$"Control Panel/GridContainer/Scale Container/x-scale-text", $"Control Panel/GridContainer/Scale Container/y-scale-text", $"Control Panel/GridContainer/Scale Container/z-scale-text"]
 
+@onready var zoomText = $"Control Panel/GridContainer/Scale Container2/zoom-text"
+@onready var cam = $Camera3D
+
 @onready var box = $Cube
+
+@onready var animations = $AnimationPlayer
+
+var hidden = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(box.rotation_degrees.x)
-	print(box.get("rotation"))
+	pass
+	#print(box.rotation_degrees.x)
+	#print(box.get("rotation"))
 
 ##Rotation
 func _on_angle_value_changed(value: float, index: int) -> void:
@@ -47,13 +55,19 @@ func _on_scale_value_changed(value: float, index: int) -> void:
 	scaleText[index].text = str(value) + "x"
 
 ##MISC
+func _on_zoom_value_changed(value: float) -> void:
+	zoomText.text = str(5/value) + "x"
+	cam.position.z = value
+
 func _on_reset_pressed() -> void:
-	xangle.value = 0
-	yangle.value = 0
-	zangle.value = 0
-	angleStep.value = 1
+	get_tree().reload_current_scene()
 	
-	xscale.value = 1
-	yscale.value = 1
-	zscale.value = 1
-	
+
+
+func _on_remove_pressed() -> void:
+	print(hidden)
+	if hidden:
+		animations.play("remove", -1, -1, hidden)
+	else:
+		animations.play("remove")
+	hidden = not hidden
