@@ -56,7 +56,9 @@ func _on_scale_value_changed(value: float, index: int) -> void:
 
 ##MISC
 func _on_zoom_value_changed(value: float) -> void:
-	zoomText.text = str(5/value) + "x"
+	var string = str(5/value)
+	var formatString = "%0.2f" % (5/value)
+	zoomText.text = formatString + "x"
 	cam.position.z = value
 
 func _on_reset_pressed() -> void:

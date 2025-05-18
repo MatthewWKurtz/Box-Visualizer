@@ -32,7 +32,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_wmjox"]
 resource_name = "remove"
-length = 0.25
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -40,7 +40,7 @@ tracks/0/path = NodePath("Control Panel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 81), Vector2(-256, 81)]
@@ -71,9 +71,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -279.0
+offset_top = -243.0
 offset_right = 256.0
-offset_bottom = 207.0
+offset_bottom = 243.0
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_l0hub")
 
@@ -122,13 +122,12 @@ custom_minimum_size = Vector2(48, 28)
 layout_mode = 2
 theme = ExtResource("1_6a30g")
 theme_override_font_sizes/normal_font_size = 18
-text = "180°"
+text = "0°"
 
 [node name="x-angle" type="HSlider" parent="Control Panel/GridContainer/Rotation Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 360.0
-value = 180.0
 
 [node name="Y" type="RichTextLabel" parent="Control Panel/GridContainer/Rotation Container"]
 custom_minimum_size = Vector2(32, 28)
@@ -142,12 +141,11 @@ custom_minimum_size = Vector2(48, 28)
 layout_mode = 2
 theme = ExtResource("1_6a30g")
 theme_override_font_sizes/normal_font_size = 18
-text = "180°"
+text = "0°"
 
 [node name="y-angle" type="HSlider" parent="Control Panel/GridContainer/Rotation Container"]
 layout_mode = 2
 max_value = 360.0
-value = 180.0
 
 [node name="Z" type="RichTextLabel" parent="Control Panel/GridContainer/Rotation Container"]
 custom_minimum_size = Vector2(32, 28)
@@ -161,12 +159,11 @@ custom_minimum_size = Vector2(48, 28)
 layout_mode = 2
 theme = ExtResource("1_6a30g")
 theme_override_font_sizes/normal_font_size = 18
-text = "180°"
+text = "0°"
 
 [node name="z-angle" type="HSlider" parent="Control Panel/GridContainer/Rotation Container"]
 layout_mode = 2
 max_value = 360.0
-value = 180.0
 
 [node name="Step" type="RichTextLabel" parent="Control Panel/GridContainer/Rotation Container"]
 custom_minimum_size = Vector2(60, 28)
