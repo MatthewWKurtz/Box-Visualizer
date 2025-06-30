@@ -10,11 +10,13 @@ extends Node3D
 @onready var angleStep = $"Control Panel/GridContainer/Rotation Container/step"
 
 ##Scale
-@onready var xscale = $"Control Panel/GridContainer/Rotation Container/x-angle"
-@onready var yscale = $"Control Panel/GridContainer/Rotation Container/y-angle"
-@onready var zscale = $"Control Panel/GridContainer/Rotation Container/z-angle"
+@onready var xscale = $"Control Panel/GridContainer/Scale Container/x-scale"
+@onready var yscale = $"Control Panel/GridContainer/Scale Container/y-scale"
+@onready var zscale = $"Control Panel/GridContainer/Scale Container/z-scale"
+@onready var allscale = $"Control Panel/GridContainer/Scale Container/all-scale"
 
 @onready var scaleText = [$"Control Panel/GridContainer/Scale Container/x-scale-text", $"Control Panel/GridContainer/Scale Container/y-scale-text", $"Control Panel/GridContainer/Scale Container/z-scale-text"]
+@onready var allscaleText = $"Control Panel/GridContainer/Scale Container/all-scale-text"
 
 @onready var zoomText = $"Control Panel/GridContainer/Scale Container2/zoom-text"
 @onready var cam = $Camera3D
@@ -53,6 +55,15 @@ func _on_angle_step_value_changed(value: float) -> void:
 func _on_scale_value_changed(value: float, index: int) -> void:
 	box.scale[index] = value
 	scaleText[index].text = str(value) + "x"
+
+func _on_allscale_value_changed(value: float) -> void:
+	#box.scale = Vector3.ONE * value
+	allscaleText.text = str(value) + "x"
+	xscale.value = value
+	yscale.value = value
+	zscale.value = value
+	
+	
 
 ##MISC
 func _on_zoom_value_changed(value: float) -> void:
