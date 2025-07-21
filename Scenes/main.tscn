@@ -1,12 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://cl7s6dpwckdcg"]
+[gd_scene load_steps=13 format=3 uid="uid://cl7s6dpwckdcg"]
 
 [ext_resource type="Theme" uid="uid://b3tgogofdc3ob" path="res://Themes/Text.tres" id="1_6a30g"]
 [ext_resource type="Script" uid="uid://dkgb88ykklm2u" path="res://Scripts/main.gd" id="1_37en6"]
+[ext_resource type="Material" uid="uid://b1y8h8we05q5s" path="res://Themes/shape.tres" id="2_8gbba"]
 
 [sub_resource type="Environment" id="Environment_kr6dh"]
 background_mode = 1
 
-[sub_resource type="BoxMesh" id="BoxMesh_04y2o"]
+[sub_resource type="BoxMesh" id="BoxMesh_8gbba"]
+material = ExtResource("2_8gbba")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8gbba"]
+material = ExtResource("2_8gbba")
+
+[sub_resource type="SphereMesh" id="SphereMesh_jjvhh"]
+material = ExtResource("2_8gbba")
 
 [sub_resource type="Gradient" id="Gradient_0ioju"]
 offsets = PackedFloat32Array(0)
@@ -55,11 +63,83 @@ _data = {
 [node name="Main" type="Node3D"]
 script = ExtResource("1_37en6")
 
+[node name="Vanishing Points" type="Node3D" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="Vanishing Points"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, 0)
+target_position = Vector3(100, 0, 0)
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_kr6dh")
 
 [node name="Cube" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_04y2o")
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("BoxMesh_8gbba")
+
+[node name="X Axis" type="Node3D" parent="Cube"]
+
+[node name="Top Left" type="RayCast3D" parent="Cube/X Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Bottom Left" type="RayCast3D" parent="Cube/X Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Top Right" type="RayCast3D" parent="Cube/X Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Bottom Right" type="RayCast3D" parent="Cube/X Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Z Axis" type="Node3D" parent="Cube"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Top Left" type="RayCast3D" parent="Cube/Z Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Bottom Left" type="RayCast3D" parent="Cube/Z Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Top Right" type="RayCast3D" parent="Cube/Z Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Bottom Right" type="RayCast3D" parent="Cube/Z Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Y Axis" type="Node3D" parent="Cube"]
+transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, -4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="Top Left" type="RayCast3D" parent="Cube/Y Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Bottom Left" type="RayCast3D" parent="Cube/Y Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Top Right" type="RayCast3D" parent="Cube/Y Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Bottom Right" type="RayCast3D" parent="Cube/Y Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, -1000.5)
+target_position = Vector3(0, 0, 2000)
+
+[node name="Cylinder" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_8gbba")
+
+[node name="Sphere" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_jjvhh")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
@@ -186,7 +266,6 @@ text = "1
 [node name="step" type="HSlider" parent="Control Panel/GridContainer/Rotation Container"]
 layout_mode = 2
 max_value = 180.0
-step = 5.0
 
 [node name="Scale" type="RichTextLabel" parent="Control Panel/GridContainer"]
 custom_minimum_size = Vector2(256, 36)

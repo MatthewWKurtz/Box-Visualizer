@@ -30,21 +30,19 @@ var hidden = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-	#print(box.rotation_degrees.x)
-	#print(box.get("rotation"))
+	print(box.mesh)
 
 ##Rotation
 func _on_angle_value_changed(value: float, index: int) -> void:
 	box.rotation_degrees[index] = value
-	angleText[index].text = str(value) + "°"
+	angleText[index].text = str(int(value)) + "°"
 
 func _on_angle_step_value_changed(value: float) -> void:
 	if value > 0:
 		xangle.step = value
 		yangle.step = value
 		zangle.step = value
-		stepText.text = str(value)
+		stepText.text = str(int(value))
 	else:
 		xangle.step = 1
 		yangle.step = 1
